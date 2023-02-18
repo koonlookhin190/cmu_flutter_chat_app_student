@@ -14,10 +14,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   Future<void> onGoogleSingIn(AuthProvider authProvider) async {
-    /** TODO: Check if login via Google SignIn
-     * 
-     * if isSignIn = true => openHome(displayName)
-     */
+     AuthProvider authProvider = context.read<AuthProvider>();
+    var isSuccess = await authProvider.handleGoogleSignIn();
+    if(isSuccess){
+      var displayName = await authProvider.getUserDisplayName();
+      openHome(displayName);
+    }
   }
 
   Future<bool> onBackPress() {
@@ -85,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: double.infinity,
               width: double.infinity,
-              color: Colors.amber,
+              color: Colors.red,
             ),
             SizedBox(
               height: double.infinity,

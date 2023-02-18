@@ -151,7 +151,7 @@ class _ChatListPageState extends State<ChatListPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(
-        backgroundColor: AppColors.blue,
+        backgroundColor: Color.fromARGB(255, 220, 30, 30),
         title: const Text(
           'Chat List',
           style: TextStyle(fontSize: 24.0, color: AppColors.white),
@@ -222,8 +222,67 @@ class _ChatListPageState extends State<ChatListPage> {
                                                                     .photoURL!,
                                                           )));
                                             },
-                                            child: Center(
-                                                child: Text('Index $index')),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  clipBehavior: Clip.hardEdge,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          60, 0, 60, 20),
+                                                  child: Image.network(
+                                                    userChat.photoUrl,
+                                                    width: 40,
+                                                    height: 40,
+                                                    fit: BoxFit.cover,
+                                                    loadingBuilder: (BuildContext
+                                                            ctx,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                      if (loadingProgress ==
+                                                          null) return child;
+                                                      return Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color: AppColors
+                                                              .burgundy,
+                                                          value: loadingProgress
+                                                                          .expectedTotalBytes !=
+                                                                      null &&
+                                                                  loadingProgress
+                                                                          .expectedTotalBytes !=
+                                                                      null
+                                                              ? loadingProgress
+                                                                      .cumulativeBytesLoaded /
+                                                                  loadingProgress
+                                                                      .expectedTotalBytes!
+                                                              : null,
+                                                        ),
+                                                      );
+                                                    },
+                                                    errorBuilder: (context,
+                                                        object, stackTrace) {
+                                                      return const Icon(
+                                                        Icons.account_circle,
+                                                        size: 35,
+                                                        color:
+                                                            AppColors.greyColor,
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                    child: Text(
+                                                        userChat.displayName))
+                                              ],
+                                            ),
                                           );
                                         });
                                   } else {

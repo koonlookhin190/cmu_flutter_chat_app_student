@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 243, 33, 33),
         elevation: 4,
         shadowColor: const Color(0xFF162A49),
       ),
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.blue,
+          backgroundColor: Color.fromARGB(255, 220, 30, 30),
           title: Text(
             'Hi, ${widget.displayName}',
             style: const TextStyle(

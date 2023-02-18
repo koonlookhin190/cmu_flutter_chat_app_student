@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
@@ -26,6 +27,16 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void checkSignedIn() async {
+
+    AuthProvider authProvider = context.read<AuthProvider>();
+    var isSignedIn = await authProvider.isLoggedIn();
+    if(isSignedIn){
+      var displayName = await authProvider.getUserDisplayName();
+      openHome(displayName);
+    }else{
+      openLogin();
+    }
+
     /** TODO: Check if login via Google SignIn
      * 
      * check isLoggedIn from authProvider services
@@ -37,7 +48,6 @@ class _SplashPageState extends State<SplashPage> {
      * 
      * else => openLogin();
      */
-    openLogin();
   }
 
   openLogin() => Navigator.pushReplacement(

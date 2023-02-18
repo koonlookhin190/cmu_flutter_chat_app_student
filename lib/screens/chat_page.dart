@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cmu_chat_app/models/chat_user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -145,7 +146,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.blue,
+        backgroundColor: Color.fromARGB(255, 220, 30, 30),
         title: Text(
           widget.peerNickname.trim(),
           style: const TextStyle(fontSize: 24.0, color: AppColors.white),
@@ -192,7 +193,7 @@ class _ChatPageState extends State<ChatPage> {
               onSendMessage(textEditingController.text, MessageType.text);
             },
             icon: const Icon(Icons.send_rounded),
-            color: AppColors.blue,
+            color: Color.fromARGB(255, 220, 30, 30),
           ),
         ],
       ),
@@ -200,6 +201,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget buildItem(int index, DocumentSnapshot? documentSnapshot) {
+    ChatUser userChat = ChatUser.fromDocument(documentSnapshot!);
     if (documentSnapshot != null) {
       ChatMessages chatMessages = ChatMessages.fromDocument(documentSnapshot);
       if (chatMessages.idFrom == currentUserId) {
@@ -226,7 +228,7 @@ class _ChatPageState extends State<ChatPage> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Image.network(
-                          '',
+                          widget.userAvatar,
                           width: 40,
                           height: 40,
                           fit: BoxFit.cover,
@@ -280,7 +282,7 @@ class _ChatPageState extends State<ChatPage> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Image.network(
-                          '',
+                          widget.peerAvatar,
                           width: 40,
                           height: 40,
                           fit: BoxFit.cover,
